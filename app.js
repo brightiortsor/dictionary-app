@@ -12,7 +12,7 @@ btn.addEventListener("click", () => {
       result.innerHTML = `
 <div class="word">
           <h3>${searchWord}</h3>
-          <button><i class="fa-solid fa-volume-high"></i></button>
+          <button onclick="playSound()"><i class="fa-solid fa-volume-high"></i></button>
         </div>
 
         <div class="details">
@@ -22,7 +22,14 @@ btn.addEventListener("click", () => {
         <p class="meaning">${data[0].meanings[1].definitions[0].definition}</p>
         <p class="word-examp">${
           data[0].meanings[0].definitions[0].example || ""
-        }</p>
-`;
+        }</p>`;
+      sound.setAttribute("src", `${data[0].phonetics[0].audio}`);
+    })
+    .catch(() => {
+      result.innerHTML = `<h3 class="error">Couldn't Find Word</h3>`;
     });
 });
+
+function playSound() {
+  sound.play();
+}
